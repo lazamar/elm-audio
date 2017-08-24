@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <section></section>
+
+    <script src="./main.js"></script>
+    <script>
+    /* eslint-disable*/
+const container = document.querySelector("section");
+const app = Elm.Main.embed(container);
+
+const subscribe = (fName, f) => app.ports[fname].subscribe(f);
+const send = (fName, f) => app.ports[fname].send(f);
+
+// Into ELM ports
+function sendAudio(audio) {}
+
+// Out of ELM ports
+subscribe("createAudio", url => {
+    const audio = new Audio(url);
+    send("takeAudio", audio);
+});
+subscribe("play", audio => audio.play());
+subscribe("stop", audio => audio.stop());
+subscribe("pause", audio => audio.pause());
+</script>
+</body>
+</html>

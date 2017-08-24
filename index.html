@@ -15,8 +15,8 @@
 const container = document.querySelector("section");
 const app = Elm.Main.embed(container);
 
-const subscribe = (fName, f) => app.ports[fname].subscribe(f);
-const send = (fName, f) => app.ports[fname].send(f);
+const subscribe = (fName, f) => app.ports[fName].subscribe(f);
+const send = (fName, f) => app.ports[fName].send(f);
 
 // Into ELM ports
 function sendAudio(audio) {}

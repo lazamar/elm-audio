@@ -12,7 +12,7 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = subscriptions
         }
 
 
@@ -52,12 +52,21 @@ type alias Model =
 
 init : ( Model, Cmd Msg )
 init =
-    Nothing ! []
+    Nothing ! [ createAudio "http://kingston-rp.org/mp3/ambient/Burning%20Fireplace%20with%20Crackling%20Fire%20Sounds%20(Full%20HD).mp3" ]
+
+
+subscriptions mode =
+    takeAudio TakeJson
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update _ model =
-    model ! []
+update msg model =
+    case msg of
+        TakeJson json ->
+            Just json ! [ play json ]
+
+        _ ->
+            model ! []
 
 
 view : Model -> Html Msg

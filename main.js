@@ -7798,31 +7798,44 @@ var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
 var _user$project$Main$view = function (_p0) {
 	return _elm_lang$html$Html$text('I\'m working');
 };
-var _user$project$Main$update = F2(
-	function (_p1, model) {
-		return A2(
-			_elm_lang$core$Platform_Cmd_ops['!'],
-			model,
-			{ctor: '[]'});
+var _user$project$Main$takeAudio = _elm_lang$core$Native_Platform.incomingPort('takeAudio', _elm_lang$core$Json_Decode$value);
+var _user$project$Main$createAudio = _elm_lang$core$Native_Platform.outgoingPort(
+	'createAudio',
+	function (v) {
+		return v;
 	});
 var _user$project$Main$init = A2(
 	_elm_lang$core$Platform_Cmd_ops['!'],
 	_elm_lang$core$Maybe$Nothing,
-	{ctor: '[]'});
-var _user$project$Main$main = _elm_lang$html$Html$program(
 	{
-		init: _user$project$Main$init,
-		view: _user$project$Main$view,
-		update: _user$project$Main$update,
-		subscriptions: function (_p2) {
-			return _elm_lang$core$Platform_Sub$none;
-		}
-	})();
-var _user$project$Main$takeJson = _elm_lang$core$Native_Platform.incomingPort('takeJson', _elm_lang$core$Json_Decode$value);
+		ctor: '::',
+		_0: _user$project$Main$createAudio('http://kingston-rp.org/mp3/ambient/Burning%20Fireplace%20with%20Crackling%20Fire%20Sounds%20(Full%20HD).mp3'),
+		_1: {ctor: '[]'}
+	});
 var _user$project$Main$play = _elm_lang$core$Native_Platform.outgoingPort(
 	'play',
 	function (v) {
 		return v;
+	});
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p1 = msg;
+		if (_p1.ctor === 'TakeJson') {
+			var _p2 = _p1._0;
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				_elm_lang$core$Maybe$Just(_p2),
+				{
+					ctor: '::',
+					_0: _user$project$Main$play(_p2),
+					_1: {ctor: '[]'}
+				});
+		} else {
+			return A2(
+				_elm_lang$core$Platform_Cmd_ops['!'],
+				model,
+				{ctor: '[]'});
+		}
 	});
 var _user$project$Main$pause = _elm_lang$core$Native_Platform.outgoingPort(
 	'pause',
@@ -7840,6 +7853,11 @@ var _user$project$Main$Play = {ctor: 'Play'};
 var _user$project$Main$TakeJson = function (a) {
 	return {ctor: 'TakeJson', _0: a};
 };
+var _user$project$Main$subscriptions = function (mode) {
+	return _user$project$Main$takeAudio(_user$project$Main$TakeJson);
+};
+var _user$project$Main$main = _elm_lang$html$Html$program(
+	{init: _user$project$Main$init, view: _user$project$Main$view, update: _user$project$Main$update, subscriptions: _user$project$Main$subscriptions})();
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
